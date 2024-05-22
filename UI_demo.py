@@ -120,15 +120,16 @@ if user_input := st.chat_input():
     print(response)
     pattern = r'\b[\w\s-]+\.pdf-\d+'
     # Find all URLs in the text
-    resources = re.findall(pattern, response)
+    resources_final = re.findall(pattern, response)
     try:
-        if resources[0] == '' or 'N/A' in resources[0]:
+        if resources_final[0] == '' or 'N/A' in resources_final[0]:
             resources_final = []
         else:
-            resources_final = list(resources[0].split(", "))
+            resources_final = re.findall(pattern, response)
     except:
         resources_final = []
-    response_final = response.replace(".pdf", "").replace(".pdf, ", "").strip()
+    response_1 = re.sub(pattern, "", response)
+    response_final = response_1.replace(".pdf", "").replace(".pdf, ", "").replace("Source:").strip()
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
 
