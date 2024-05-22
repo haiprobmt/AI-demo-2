@@ -129,7 +129,7 @@ if user_input := st.chat_input():
     except:
         resources_final = []
     response_1 = re.sub(pattern, "", response)
-    response_final = response_1.replace(".pdf", "").replace(".pdf, ", "").replace("Source:").strip()
+    response_final = response_1.replace(".pdf", "").replace(".pdf, ", "").replace("Source:", "").strip()
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
 
