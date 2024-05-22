@@ -138,7 +138,7 @@ if user_input := st.chat_input():
     history_json = {"history": history}
     upload_conversation_to_blob("conversation.json", conversation)
     upload_conversation_to_blob("history_json.json", history_json)
-    st.session_state.messages.append({"role": "assistant", "content": {"response": response_final, "resources": resources_final}})
+    st.session_state.messages.append({"role": "assistant", "content": {"response": response, "resources": resources_final}})
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
