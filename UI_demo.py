@@ -67,7 +67,7 @@ st.write(" ")
 
 add_source = "\n\nProvide the relevant sourcepage in the end of the response. \
     Do not provide the irrelevant sourcepage. \
-    The sourcepage always has the format 'Source: text1.pdf, text2.pdf'. \
+    The sourcepages always have the format .pdf. For example: 'Source: text1.pdf, text2.pdf'. \
     Do not provide the sourcepage if the question is generic"
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
@@ -110,12 +110,12 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '')
+                    "content": system_prompt.replace('   ', '') + add_source
                 }
             ]
     print(search)
     query = search_demo(search)
-    conversation.append({"role": "user", "content": query + add_source})
+    conversation.append({"role": "user", "content": query})
     response = send_message(conversation)
     print(response)
     if "page" in response:
