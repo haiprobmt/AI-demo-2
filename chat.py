@@ -21,7 +21,7 @@ AZURE_SEARCH_SERVICE = "search-sanderstrothmann"
 AZURE_SEARCH_INDEX = "index-sanderstrothmann"
 # AZURE_SEARCH_INDEX_1 = "vector-1715913242600"
 AZURE_OPENAI_SERVICE = "cog-kguqugfu5p2ki"
-AZURE_OPENAI_CHATGPT_DEPLOYMENT = "chat"
+AZURE_OPENAI_CHATGPT_DEPLOYMENT = "gpt-4o"
 AZURE_SEARCH_API_KEY = "i7F5uuUzXR8KCZ58o4r3aZAr9QG5dDp3erOLgz6kb9AzSeAabEHy"
 AZURE_OPENAI_EMB_DEPLOYMENT = "embedding"
 
@@ -32,7 +32,7 @@ AZURE_SUBSCRIPTION_ID = os.environ.get("AZURE_SUBSCRIPTION_ID")
 
 # # Used by the OpenAI SDK
 openai.api_base = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
-openai.api_version = "2023-09-01-preview"
+openai.api_version = "2024-05-13"
 # # Comment these two lines out if using keys, set your API key in the OPENAI_API_KEY environment variable and set openai.api_type = "azure" instead
 openai.api_type = "azure"
 openai.api_key = "4657af893faf48e5bd81208d9f87f271"
