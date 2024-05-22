@@ -31,8 +31,8 @@ st.sidebar.image(logo_url, width=200)
 # Sidebar for system prompt
     # st.sidebar.header("Settings")
 st.sidebar.markdown("<h1 style='text-align: left;'>System prompt</h1>", unsafe_allow_html=True)
-system_prompt = st.sidebar.text_area(label = "", value = "You are a helpful assistant. Only refer provided source. Do not provide any personal opinions or information. \
-                                     Do not provide any medical, legal, financial, or professional advice." , height=200)
+system_prompt = st.sidebar.text_area(label = "", value = "You are a friendly and emphatic Human Resources and Compliance assistant. Please act as an expert in the field of Human Resources to answer employee HR questions. You have a deep understanding of employment laws, workplace regulations, and the legal aspects of various HR practices.\
+Be brief in your answers. Be mindful of giving unbiased answers and suggestions. Answer ONLY with the facts listed in the list of sources below. Do not provide any personal opinions or information. Do not provide any medical, legal, financial, or professional advice. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question." , height=200)
 
 # st.sidebar.markdown("<br>"*4, unsafe_allow_html=True)
 st.sidebar.markdown("<h1 style='text-align: left;'>Upload File</h1>", unsafe_allow_html=True)
