@@ -26,7 +26,7 @@ with col3:
     """, unsafe_allow_html=True)
 
 logo_url = get_blob_url_with_sas('dl-logo-hamburger.png', "image")
-st.sidebar.image(logo_url, width=200)
+st.sidebar.image(logo_url, width=250)
 # with col1:
 # Sidebar for system prompt
     # st.sidebar.header("Settings")
