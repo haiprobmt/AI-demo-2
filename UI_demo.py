@@ -154,7 +154,7 @@ for message in st.session_state.messages:
         if message["role"] == "user":
             st.write(message["content"])
         elif message["role"] == "assistant":
-            st.write(message["content"]["response"].replace(")", "")).replace("(", "")
+            st.write(message["content"]["response"].replace(")", "").replace("(", ""))
             resource_list = message["content"]["resources"]
             if len(resource_list) > 0:
                 st.write("References:")
