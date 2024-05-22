@@ -9,5 +9,4 @@ azure-search-documents==11.4.0
 azure-storage-blob==12.14.1
 pypdf2==3.0.1
 tenacity==8.2.2
-tiktoken==0.3.3
 pypdf

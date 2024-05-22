@@ -6,7 +6,6 @@ from azure.search.documents.models import QueryType
 from azure.core.credentials import AzureKeyCredential
 import re
 import json
-import tiktoken
 from azure.storage.blob import BlobServiceClient, generate_blob_sas, BlobSasPermissions
 from datetime import datetime, timedelta
 import uuid
@@ -57,7 +56,6 @@ remove = True
 removeall = False
 skipblobs = False
 localpdfparser = True
-TIKTOKEN_ENCODING = tiktoken.encoding_for_model("gpt-35-turbo-16k-0613")
 
 def search(prompt, filter=None):
     credential = AzureKeyCredential(AZURE_SEARCH_API_KEY)
