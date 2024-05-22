@@ -110,12 +110,12 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '') + add_source
+                    "content": system_prompt.replace('   ', '')
                 }
             ]
     print(search)
     query = search_demo(search)
-    conversation.append({"role": "user", "content": query})
+    conversation.append({"role": "user", "content": query + add_source})
     response = send_message(conversation)
     print(response)
     pattern = r'\b[\w\s-]+\.pdf-\d+'
