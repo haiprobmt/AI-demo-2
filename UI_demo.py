@@ -118,14 +118,9 @@ if user_input := st.chat_input():
     conversation.append({"role": "user", "content": query})
     response = send_message(conversation)
     print(response)
-    if "page" in response:
-        pattern = r'Source: (.*), page'
-        # Find all URLs in the text
-        resources = re.findall(pattern, response)
-    else:
-        pattern = r'Source: (.*)'
-        # Find all URLs in the text
-        resources = re.findall(pattern, response)
+    pattern = r'\b[\w\s-]+\.pdf-\d+'
+    # Find all URLs in the text
+    resources = re.findall(pattern, response)
     try:
         if resources[0] == '' or 'N/A' in resources[0]:
             resources_final = []
@@ -133,12 +128,7 @@ if user_input := st.chat_input():
             resources_final = list(resources[0].split(", "))
     except:
         resources_final = []
-    if "page" in response:
-        pattern_1 = r'Source: (.*), page'
-        response_final = re.sub(pattern_1, "", response).strip()
-    else:
-        pattern_1 = r'Source: (.*)'
-        response_final = re.sub(pattern_1, "", response).strip()
+    response_final = response.replace(".pdf", "").replace(".pdf, ", "").strip()
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
 
@@ -159,6 +149,6 @@ for message in st.session_state.messages:
             if len(resource_list) > 0:
                 st.write("References:")
                 for resource in resource_list:
-                    resource_name = resource.replace(")", "")
+                    resource_name = resource.replace(")", "") + ".pdf"
                     reference_url = get_blob_url_with_sas(resource_name, "data-source")
                     st.write(f'[{resource_name}]({reference_url})')
