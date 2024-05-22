@@ -65,7 +65,10 @@ if delete_button:
 st.write(" ")
 st.write(" ")
 
-add_source = "\n\nProvide the relevant sourcepage in the end of the response. Do not provide the irrelevant sourcepage, for example: Source: text1.pdf, text2.pdf. Do not provide the sourcepage if the question is generic"
+add_source = "\n\nProvide the relevant sourcepage in the end of the response. \
+    Do not provide the irrelevant sourcepage. \
+    The sourcepage always has the format 'Source: text1.pdf, text2.pdf'. \
+    Do not provide the sourcepage if the question is generic"
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = []
