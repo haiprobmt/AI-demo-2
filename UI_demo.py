@@ -128,7 +128,7 @@ if user_input := st.chat_input():
         completion = client.completions.create(
             model='davinci',
             prompt=summary_prompt_template.format(summary="\n".join(history), question=user_input),
-            temperature=0.7,
+            temperature=0.0,
             max_tokens=32,
             stop=["\n"])
         search = completion.choices[0].text
