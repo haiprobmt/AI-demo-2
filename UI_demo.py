@@ -3,9 +3,20 @@ from chat import (
     search_demo, send_message_4o, 
     load_conversation, delete_conversation, 
     get_blob_url_with_sas, upload_to_blob_storage, upload_conversation_to_blob)
-import openai
+from openai import AzureOpenAI
 import re
 import index_doc
+
+AZURE_OPENAI_SERVICE = "cog-kguqugfu5p2ki"
+api_version = "2023-12-01-preview"
+endpoint = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
+
+client = AzureOpenAI(
+    api_version=api_version,
+    azure_endpoint=endpoint,
+    api_key="4657af893faf48e5bd81208d9f87f271"
+    # azure_ad_token_provider,
+)
 
 # Initialize conversation
 conversation = []
@@ -113,10 +124,13 @@ if user_input := st.chat_input():
     """
         
     if len(history) > 0:
-        system_promt_history = summary_prompt_template.format(summary="\n".join(history), question=user_input)
-        messages = [{"role": "system", "content":system_promt_history}]
-        messages.append({"role": "user", "content": user_input})
-        search = send_message_4o(messages, model)
+        completion = client.completions.create(
+            model='davinci',
+            prompt=summary_prompt_template.format(summary="\n".join(history), question=user_input),
+            temperature=0.7,
+            max_tokens=32,
+            stop=["\n"])
+        search = completion.choices[0].text
     else:
         search = user_input
     try:
