@@ -122,8 +122,8 @@ def send_message(messages, model=AZURE_OPENAI_CHATGPT_DEPLOYMENT):
     response = openai.ChatCompletion.create(
         engine=model,
         messages=messages,
-        temperature=0.0,
-        max_tokens=1024
+        temperature=0.5,
+        max_tokens=2024
     )
     response_final = response['choices'][0]['message']['content']
     return response_final
