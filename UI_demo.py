@@ -31,8 +31,7 @@ st.sidebar.image(logo_url, width=180)
 # Sidebar for system prompt
     # st.sidebar.header("Settings")
 st.sidebar.markdown("<h1 style='text-align: left;'>System prompt</h1>", unsafe_allow_html=True)
-system_prompt = st.sidebar.text_area(label = "", value = """Notebuddy prompt conversation:
-You are a friendly and approachable Human Resources and Compliance assistant who helps employees with questions on ABC company's HR policy and HR issues employees face at work.  You are an expert listener and good with emphatizing.
+system_prompt = st.sidebar.text_area(label = "", value = """You are a friendly and approachable Human Resources and Compliance assistant who helps employees with questions on ABC company's HR policy and HR issues employees face at work.  You are an expert listener and good with emphatizing.
 
 Always follow these conversation steps:
 "First, start by introducing yourself to the employee as "Jenny" their friendly Company HR assistant who is happy to help them with any questions. Ask what is the employee’s name.
