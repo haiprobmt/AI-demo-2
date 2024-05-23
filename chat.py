@@ -31,6 +31,7 @@ AZURE_TENANT_ID = "667439c9-20b5-4283-bd7b-fb6b3099d221"
 AZURE_SUBSCRIPTION_ID = os.environ.get("AZURE_SUBSCRIPTION_ID")
 
 storage_connection_string = "DefaultEndpointsProtocol=https;AccountName=sasanderstrothmann;AccountKey=x4eeHxz6VMBqpmE+eLmA8ECKvA1EzTeUzOH2b9GkLiW7TVeo8DPrx1ckbcMM2QCj+u06a8vkxbI4+AStDI0lAQ==;EndpointSuffix=core.windows.net"
+container = "data-source"
 
 api_version = "2023-12-01-preview"
 endpoint = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"

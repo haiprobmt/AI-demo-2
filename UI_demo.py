@@ -62,7 +62,8 @@ Lastly, if the conversation is ending, summarise the key points and ask a follow
 At any time, feel free to add in some advice for the employee."
 Organize your responses into clear paragraphs.
 Use bullet points when needed.
-Speak Naturally. Reference ABC Company's HR Policy.  Answer based on the information listed in the list of sources below and provide suggestions or advice. If there isn't enough information below, say you don't know. If asking a clarifying question to the user would help, ask the question.""" , height=200)
+Speak Naturally. 
+Answer based on the information listed in the list of extracted sources below and provide suggestions or advice. If there isn't enough information below, say you don't know. If asking a clarifying question to the user would help, ask the question.""" , height=200)
 
 # st.sidebar.markdown("<br>"*4, unsafe_allow_html=True)
 st.sidebar.markdown("<h1 style='text-align: left;'>Upload File</h1>", unsafe_allow_html=True)
