@@ -61,7 +61,7 @@ def search(prompt, filter=None):
         index_name=AZURE_SEARCH_INDEX,
         credential=credential)   
     
-    query_vector = client.Embedding.create(engine=AZURE_OPENAI_EMB_DEPLOYMENT, input=prompt)["data"][0]["embedding"]
+    query_vector = client.embeddings.create(input=prompt,model= "embedding").data[0].embedding
     # filter = f"image eq '{image}'"
     r = search_client.search(prompt, 
                             filter=filter,
@@ -96,7 +96,7 @@ def search_demo(prompt, filter=None):
         index_name="index-demo",
         credential=credential)   
     
-    query_vector = client.Embedding.create(engine=AZURE_OPENAI_EMB_DEPLOYMENT, input=prompt)["data"][0]["embedding"]
+    query_vector = client.embeddings.create(input=prompt,model= "embedding").data[0].embedding
     # filter = f"image eq '{image}'"
     r = search_client.search(prompt, 
                             filter=filter,
