@@ -113,14 +113,10 @@ if user_input := st.chat_input():
     """
         
     if len(history) > 0:
-        print(summary_prompt_template.format(summary="\n".join(history), question=user_input))
-        completion = openai.Completion.create(
-            engine='davinci',
-            prompt=summary_prompt_template.format(summary="\n".join(history), question=user_input),
-            temperature=0.7,
-            max_tokens=32,
-            stop=["\n"])
-        search = completion.choices[0].text
+        system_promt_history = summary_prompt_template.format(summary="\n".join(history), question=user_input)
+        messages = [{"role": "system", "content":system_promt_history}]
+        messages.append({"role": "user", "content": user_input})
+        search = send_message_4o(messages, model)
     else:
         search = user_input
     try:
