@@ -124,7 +124,6 @@ if user_input := st.chat_input():
     query = search_demo(search)
     conversation.append({"role": "user", "content": query + add_source})
     response = send_message(conversation)
-    print(response)
     pattern = r'\b[\w\s-]+\.pdf-\d+'
     # Find all URLs in the text
     resources_final = re.findall(pattern, response)
@@ -139,7 +138,7 @@ if user_input := st.chat_input():
     response_final = response_1.replace(".pdf,", "").replace(".pdf", "").replace("Source:", "").replace(". ,", ".").strip()
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
-
+    print(conversation)
     history.append("user: " + user_input)
     history.append("assistant: " + response_final)
     history_json = {"history": history}
