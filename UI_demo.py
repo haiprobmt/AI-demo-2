@@ -117,12 +117,12 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '')
+                    "content": system_prompt.replace('   ', '') + add_source
                 }
             ]
     print(search)
     query = search_demo(search)
-    conversation.append({"role": "user", "content": query + add_source})
+    conversation.append({"role": "user", "content": query})
     response = send_message(conversation)
     pattern = r'\b[\w\s-]+\.pdf-\d+'
     # Find all URLs in the text
