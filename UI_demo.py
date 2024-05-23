@@ -1,6 +1,6 @@
 import streamlit as st
 from chat import (
-    search_demo, send_message, 
+    search_demo, send_message_4o, 
     load_conversation, delete_conversation, 
     get_blob_url_with_sas, upload_to_blob_storage, upload_conversation_to_blob)
 import openai
@@ -24,6 +24,18 @@ with col3:
     <button style='margin: 10px; padding: 10px; background-color: #FFFFFF; color: black; border: curve; cursor: pointer;'>Transcription Mode</button>
     </a>
     """, unsafe_allow_html=True)
+    
+    # Define the options for the dropdown
+    options = ['GPT 3.5', 'GPT 4']
+
+    # Create the dropdown
+    selected_option = st.selectbox('Select model', options)
+
+    # Display the selected option
+    if selected_option == 'GPT 3.5':
+        model = "chat16k"
+    else:
+        model = "chat4"
 
 logo_url = get_blob_url_with_sas('dl-logo-hamburger.png', "image")
 st.sidebar.image(logo_url, width=180)
@@ -123,7 +135,7 @@ if user_input := st.chat_input():
     print(search)
     query = search_demo(search)
     conversation.append({"role": "user", "content": query})
-    response = send_message(conversation)
+    response = send_message_4o(conversation, model)
     pattern = r'\b[\w\s-]+\.pdf-\d+'
     # Find all URLs in the text
     resources_final = re.findall(pattern, response)

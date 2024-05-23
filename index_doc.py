@@ -3,7 +3,7 @@ import html
 import io
 import re
 import time
-import openai
+from openai import AzureOpenAI
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
 from azure.identity import AzureDeveloperCliCredential
@@ -39,11 +39,14 @@ removeall = False
 skipblobs = False
 localpdfparser = True
 
-# AZURE_OPENAI_CLIENT = openai.AzureOpenAI(
-#         api_key = "4657af893faf48e5bd81208d9f87f271",  
-#         api_version = "2023-05-15",
-#         azure_endpoint =f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
-#     )
+api_version = "2023-12-01-preview"
+endpoint = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
+
+client = AzureOpenAI(
+    api_version=api_version,
+    azure_endpoint=endpoint,
+    api_key="4657af893faf48e5bd81208d9f87f271"
+)
 
 container = "data-source"
 MAX_SECTION_LENGTH = 1000
@@ -274,7 +277,7 @@ def before_retry_sleep(retry_state):
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(15), before_sleep=before_retry_sleep)
 def compute_embedding(text):
-    response = openai.Embedding.create(engine=AZURE_OPENAI_EMB_DEPLOYMENT, input=text)["data"][0]["embedding"]
+    response = client.embeddings.create(input=text,model= "embedding").data[0].embedding
     return response
 
 def index_sections(filename, sections):
