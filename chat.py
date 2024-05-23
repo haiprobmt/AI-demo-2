@@ -127,7 +127,10 @@ def search_demo(prompt, filter=None):
 def send_message_4o(messages, model):
     response = client.chat.completions.create(
     model=model,
-    messages=messages) 
+    messages=messages,
+    temperature=0.5,
+    max_tokens=2024
+    ) 
     return response.choices[0].message.content
 
 def upload_conversation_to_blob(blob_name, data):
