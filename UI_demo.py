@@ -37,18 +37,18 @@ with col3:
     """, unsafe_allow_html=True)
     
     # Define the options for the dropdown
-    options = ['GPT 3.5', 'GPT 4', 'GPT 4-o']
+    options = ['GPT 4-o', 'GPT 4', 'GPT 3.5']
 
     # Create the dropdown
     selected_option = st.selectbox('Select model', options)
 
     # Display the selected option
-    if selected_option == 'GPT 3.5':
-        model = "chat16k"
+    if selected_option == 'GPT 4-o':
+        model = "gpt-4o"
     elif selected_option == 'GPT 4':
         model = "chat4"
     else:
-        model = "gpt-4o"
+        model = "chat16k"
 
 logo_url = get_blob_url_with_sas('dl-logo-hamburger.png', "image")
 st.sidebar.image(logo_url, width=180)
