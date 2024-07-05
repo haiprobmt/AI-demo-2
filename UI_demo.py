@@ -98,10 +98,6 @@ if delete_button:
 st.write(" ")
 st.write(" ")
 
-add_source = "\n\nProvide the relevant sourcepage in the end of the response. \
-    Do not provide the irrelevant sourcepage. \
-    The sourcepages always have the format .pdf. For example: 'Source: text1.pdf, text2.pdf'. \
-    Do not provide the sourcepage if the question is generic"
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = []
@@ -142,28 +138,29 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '') + add_source
+                    "content": system_prompt.replace('   ', '')
                 }
             ]
     print(search)
-    query = search_demo(search)
+    query = search_demo(search)['user_message']
     conversation.append({"role": "user", "content": query})
     response = send_message_4o(conversation, model)
-    pattern = r'\b[\w\s-]+\.pdf-\d+'
-    # Find all URLs in the text
-    resources_final = re.findall(pattern, response)
-    try:
-        if resources_final[0] == '' or 'N/A' in resources_final[0]:
-            resources_final = []
-        else:
-            resources_final = re.findall(pattern, response)
-    except:
-        resources_final = []
-    response_1 = re.sub(pattern, "", response)
-    response_final = response_1.replace(".pdf,", "").replace(".pdf", "").replace("Source:", "").replace(". ,", ".").strip()
+    # pattern = r'\b[\w\s-]+\.pdf-\d+'
+    # # Find all URLs in the text
+    # resources_final = re.findall(pattern, response)
+    resources_final = search_demo(search)['source']
+    # try:
+    #     if resources_final[0] == '' or 'N/A' in resources_final[0]:
+    #         resources_final = []
+    #     else:
+    #         resources_final = re.findall(pattern, response)
+    # except:
+    #     resources_final = []
+    # response_1 = re.sub(pattern, "", response)
+    response_final = response.replace(".pdf,", "").replace(".pdf", "").replace("Source:", "").replace(". ,", ".").strip()
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
-    print(conversation)
+
     history.append("user: " + user_input)
     history.append("assistant: " + response_final)
     history_json = {"history": history}

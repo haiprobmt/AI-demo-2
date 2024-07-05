@@ -110,10 +110,12 @@ def search_demo(prompt, filter=None):
                             top_k=50 if query_vector else None,
                             vector_fields="embedding" if query_vector else None
                             )
-    results = [doc['sourcepage'] + ": " + doc['content'].replace("\n", "").replace("\r", "") for doc in r if doc['sourcepage'] != None]
-    content = "\n".join(results)
-    user_message = prompt + "\n SOURCES:\n" + content
-    return user_message
+    results = [{"content": doc['content'].replace("\n", "").replace("\r", ""), "source":doc['sourcepage']} for doc in r]
+    content = [doc['content'].replace("\n", "").replace("\r", "") for doc in results]
+    source = list(set([doc['sourcepage'] for doc in results]))
+    content_final = "\n".join(content)
+    user_message = prompt + "\n SOURCES:\n" + content_final
+    return {"source": source, "user_message": user_message}
 
 # def send_message(messages, model=AZURE_OPENAI_CHATGPT_DEPLOYMENT):
 #     response = openai.ChatCompletion.create(
