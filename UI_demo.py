@@ -98,6 +98,11 @@ if delete_button:
 st.write(" ")
 st.write(" ")
 
+add_source = "\n\nProvide the relevant sourcepage in the end of the response. \
+    Do not provide the irrelevant sourcepage. \
+    The sourcepages always have the format .pdf. For example: 'Source: text1.pdf, text2.pdf'. \
+    Do not provide the sourcepage if the question is generic"
+
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = []
@@ -138,14 +143,13 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '') + "\nReturn the source reference in your answer for example text.pdf, if the question is generic or not mentioned in the source, do not return the source reference."
+                    "content": system_prompt.replace('   ', '') + add_source
                 }
             ]
-    print(search)
     query = search_demo(search)['user_message']
     conversation.append({"role": "user", "content": query})
     response = send_message_4o(conversation, model)
-    # pattern = r'\b[\w\s-]+\.pdf-\d+'
+    # pattern = r'\b[\w\s-]+\.pdf-\d+'  
     # # Find all URLs in the text
     # resources_final = re.findall(pattern, response)
     if '.pdf' in response:
