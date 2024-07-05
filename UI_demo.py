@@ -138,7 +138,7 @@ if user_input := st.chat_input():
         conversation = [
                 {
                     "role": "system",
-                    "content": system_prompt.replace('   ', '')
+                    "content": system_prompt.replace('   ', '') + "\nReturn the source reference in your answer for example text.pdf, if the question is generic or not mentioned in the source, do not return the source reference."
                 }
             ]
     print(search)
@@ -148,7 +148,10 @@ if user_input := st.chat_input():
     # pattern = r'\b[\w\s-]+\.pdf-\d+'
     # # Find all URLs in the text
     # resources_final = re.findall(pattern, response)
-    resources_final = search_demo(search)['source']
+    if '.pdf' in response:
+        resources_final = search_demo(search)['source']
+    else:
+        resources_final = []
     # try:
     #     if resources_final[0] == '' or 'N/A' in resources_final[0]:
     #         resources_final = []
@@ -157,7 +160,7 @@ if user_input := st.chat_input():
     # except:
     #     resources_final = []
     # response_1 = re.sub(pattern, "", response)
-    response_final = response.replace(".pdf,", "").replace(".pdf", "").replace("Source:", "").replace(". ,", ".").strip()
+    response_final = response
     conversation[-1]['content'] = user_input
     conversation.append({"role": "assistant", "content": response_final})
 
@@ -178,6 +181,6 @@ for message in st.session_state.messages:
             if len(resource_list) > 0:
                 st.write("References:")
                 for resource in resource_list:
-                    resource_name = resource.replace(")", "") + ".pdf"
+                    resource_name = resource
                     reference_url = get_blob_url_with_sas(resource_name, "data-source")
                     st.write(f'[{resource_name}]({reference_url})')
