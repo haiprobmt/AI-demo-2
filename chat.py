@@ -110,7 +110,7 @@ def search_demo(prompt, filter=None):
                             top_k=50 if query_vector else None,
                             vector_fields="embedding" if query_vector else None
                             )
-    results = [{"content": doc['content'].replace("\n", "").replace("\r", ""), "source":doc['sourcepage']} for doc in r]
+    results = [{"content": doc['content'].replace("\n", "").replace("\r", ""), "source":doc['sourcefile']} for doc in r]
     content = [doc['content'].replace("\n", "").replace("\r", "") for doc in results]
     source = list(set([doc['source'] for doc in results]))
     content_final = "\n".join(content)
