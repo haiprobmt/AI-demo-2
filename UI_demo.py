@@ -153,7 +153,7 @@ if user_input := st.chat_input():
     # # Find all URLs in the text
     # resources_final = re.findall(pattern, response)
     if '.pdf' in response:
-        resources_final = search_demo(search)['source']
+        resources_final = [source for source in search_demo(search)['source'] if '0.pdf' not in source]
     else:
         resources_final = []
     # try:
