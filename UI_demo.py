@@ -148,14 +148,18 @@ if user_input := st.chat_input():
             ]
     query = search_demo(search)['user_message']
     conversation.append({"role": "user", "content": query})
-    response = send_message_4o(conversation, model)
+    response_0 = send_message_4o(conversation, model)
+
     # pattern = r'\b[\w\s-]+\.pdf-\d+'  
     # # Find all URLs in the text
     # resources_final = re.findall(pattern, response)
-    if '.pdf' in response:
+    if '.pdf' in response_0:
         resources_final = [source for source in search_demo(search)['source'] if '0.pdf' not in source]
     else:
         resources_final = []
+    
+    pattern = r"Source: [^\s]+\.pdf"
+    response = re.sub(pattern, "", response_0).strip()
     # try:
     #     if resources_final[0] == '' or 'N/A' in resources_final[0]:
     #         resources_final = []
